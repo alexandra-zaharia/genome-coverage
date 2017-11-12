@@ -1,0 +1,15 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="GenomeCoverage:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/GenomeCoverage_jar</output-path>
+    <root id="archive" name="GenomeCoverage.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/out/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="GenomeCoverage" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jfreechart-1.0.19.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jcommon-1.0.23.jar" path-in-jar="/" />
+      <element id="file-copy" path="$PROJECT_DIR$/res/utilisation.html" />
+      <element id="file-copy" path="$PROJECT_DIR$/res/apropos.html" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,166 @@
+<html>
+<head>
+<style>
+    body    { margin:20px;font-family:sans-serif }
+    h1      { color:#3366FF;text-align:center }
+    h2      { color:#0099FF }
+    h3      { color:#333333;text-align:center }
+    p       { padding:0;margin:0 0 15 0;text-align:justify }
+    p.cont  { padding:0;margin:0 0  5 0;text-align:justify }
+
+    p.code  { margin:5px;text-align:justify;color:#707070;
+              font-family:monospace;font-size:12pt }
+    ul      { padding:0 0 0 20;margin:0 }              
+    li      { margin:0 0 10 20;text-align:justify }
+    li.2    { margin:0 0  5 20;text-align:justify }
+    li.3    { margin:0 0  0 20;text-align:justify }    
+    .code { font-family:monospace;color:#707070;font-size:14pt } 
+</style>
+</head>
+
+<body>
+
+<h1>Recherche de motifs nucléotidiques</h1>
+
+<h3>Alexandra ZAHARIA</h3><p></p>
+
+
+<h2>Introduction</h2>
+
+<p>Cette application permet de rechercher efficacement des motifs nucléotidiques 
+parmi un ensemble de génomes et d'afficher des courbes de couverture pour un ou
+plusieurs de ces génomes.</p>
+
+<p>Les <b>données d'entrée</b> sont attendues sous la forme de deux fichiers 
+distincts: un fichier FastQ contenant les <i>reads</i> et un fichier multi-FASTA 
+contenant les génomes.</p>
+
+<p>Dans une première étape, le logiciel détermine toutes les 
+<b>occurrences</b> exactes d'une série de <i>reads</i> issus de techniques de 
+séquençage haut-débit dans un ensemble de génomes. Pour chaque <i>read</i> 
+seront considérées les séquences directe et indirecte (inversée et complémentée).
+</p>
+
+<p>Une fois la recherche d'occurrences terminée, l'utilisateur peut choisir 
+d'afficher les <b>courbes de couverture</b> pour un ou plusieurs génomes de son 
+choix (en nombre de <i>reads</i> par position dans le génome). L'option 
+d'enregistrer les résultats de la recherche, ainsi que les graphiques générés, 
+lui est également proposée.</p>
+
+<p>Les courbes de couverture sont réalisées à l'aide de la bibliothèque 
+graphique <i>open source</i> 
+<a href='http://www.jfree.org/jfreechart'>JFreeChart</a>, basée sur Java2D.</p>
+<p></p>
+
+
+<h2>Aspects algorithmiques</h2>
+
+<p>L'algorithme proposé pour réaliser la recherche d'occurrences est la 
+<b>recherche par tableau de suffixes</b>. Il s'agit d'une version
+améliorée qui ne suppose pas de garder effectivement en mémoire les suffixes
+d'un texte, mais un tableau d'indices donnant les positions de début de chaque
+suffixe dans le texte d'origine comme s'ils étaient triés dans l'ordre 
+lexicographique. Déterminer les occurrences d'une séquence
+requête dans un texte revient alors à déterminer si elle figure en préfixe d'un 
+suffixe du texte. Pour ce faire, on recourt à une recherche dichotomique sur ce
+tableau d'indices. Cette recherche dichotomique consiste à comparer non pas deux 
+chaînes de caractères (la séquence requête et un suffixe), mais les longueur des 
+plus longs préfixes propres (entre la séquence requête et un suffixe ou entre 
+deux suffixes).</p>
+
+<p>La recherche par tableau de suffixes
+est nettement plus efficace que la <b>recherche naïve</b>. Pour un jeu de 
+données de huit génomes (chacun contenant environ 8000 nucléotides) et de 
+10&nbsp;000 <i>reads</i> (chacun de taille 100), la recherche naïve nécessite 
+environ 12 secondes, alors que la recherche par tableau de suffixes nécessite 
+environ 2 secondes. La configuration utilisée pour tester les temps d'exécution 
+est une machine dotée de 4 GB de RAM et d'un processeur Intel Pentium Dual Core 
+à 2 GHz.</p>
+
+<p>Plus précisément, en termes de complexité dans le temps, supposons la
+recherche de toutes les occurrences d'une séquence requête de longueur <i>m</i>
+dans un texte de longueur <i>n</i>. La complexité au pire pour la recherche 
+naïve est de <i>O(n&nbsp;m)</i>, alors que dans le cas de la recherche par 
+tableau de suffixes on a une complexité au pire de <i>O(m + log&nbsp;n)</i>.</p>
+<p></p>
+
+
+<h2>Fonctionnalités proposées et utilisation</h2>
+
+<p>Ce logiciel propose plusieurs fonctionnalités:</p>
+<ul>
+<li>L'utilisateur peut fournir les <b>fichiers d'entrée</b> de deux manières: 
+soit en utilisant des boîtes de dialogue du système, soit en rentrant les 
+chemin vers ces fichiers dans un champs de texte.</li>
+
+<li>De façon optionnelle, il est possible de spécifier un <b>fichier de 
+sortie</b> contenant les résultats de la recherche d'occurrences. Pour chaque 
+<i>read</i> pour lequel on trouve au moins une occurrence dans au moins un des
+génomes, les résultats sont enregistrés sous la forme:
+<p class="code">&lt;ID_read&gt; &lt;longueur_read&gt; &lt;forward|reverse&gt; 
+&lt;ID_génome&gt; occ_1 ... occ_n</p>
+<p class="cont">où:</p>
+<ul>
+         <li class="2">
+         <span class="code">&lt;ID_read&gt;</span> est l'identifiant du <i>read</i>;
+         </li> 
+         
+         <li class="2">
+         <span class="code">&lt;longueur_read&gt;</span> est la longueur du 
+         <i>read</i>;
+         </li>
+         
+         <li class="2">
+         <span class="code">&lt;forward|reverse&gt;</span> est soit la chaîne 
+         "forward", soit la chaîne "reverse", signifiant le sens dans lequel le 
+         <i>read</i> a été parcouru pour rechercher ses occurrences dans le 
+         génome désigné par <span class="code">&lt;ID_génome&gt;</span>;
+         </li>
+         
+         <li class="2">
+         <span class="code">&lt;ID_génome&gt;</span> est l'identifiant du génome 
+         où au moins une occurrence du <i>read</i> a été trouvée;
+         </li>
+         
+         <li class="3">
+         <span class="code">occ_1 ... occ_n</span> est une liste d'entiers 
+         séparés par des espaces, représentant les positions de chaque 
+         occurrence du <i>read</i> dans le génome 
+         <span class="code">&lt;ID_génome&gt;</span>.
+         </li>
+         </ul>         
+</ul>
+</li>
+
+<li>Il est possible de choisir parmi plusieurs <b>méthodes de 
+recherche</b> <i>via</i> une liste déroulante. Actuellement sont proposées 
+uniquement la recherche par tableau de suffixes et la recherche naïve.</li>
+
+<li>Il est possible de <b>se déplacer entre les courbes de couverture</b> soit 
+en utilisant la liste des génomes qui s'affiche une fois la recherche terminée, 
+soit en utilisant les boutons de navigation placés en dessous du graphique.</li>
+
+<li>L'utilisateur a la possibilité de sélectionner plusieurs génomes à la fois à
+travers la liste des génomes pour afficher les <b>courbes de couverture 
+superposées</b> de ces génomes.</li>
+
+<li>L'utilisateur peut enregistrer les courbes de couverture à l'écran (courbes 
+superposées ou non) ou les courbes de couverture pour chaque génome, obtenues à 
+la suite de la recherche. Ces courbes peuvent être <b>enregistrées en une seule 
+opération</b> qui suppose uniquement de choisir le répertoire où on souhaite 
+sauvegarder les images (une par génome, en format PNG). Pour les courbes de 
+couverture simples (un seul génome) chaque fichier créé porte comme nom 
+l'identifiant du génome (les caractères spéciaux étant remplacés par des 
+<i>underscores</i>). Dans le cas des courbes superposées, l'utilisateur choisit 
+lui-même le nom du fichier de sortie.</li>
+
+<li>Les courbes de couverture peuvent être affichées en <b>plein écran</b>. Il 
+est possible de les enregistrer sous ce mode. Ces dernières auront alors 
+la taille d'affichage à l'écran.</li>
+</ul>
+
+<p></p>
+
+</body>
+</html>
+
