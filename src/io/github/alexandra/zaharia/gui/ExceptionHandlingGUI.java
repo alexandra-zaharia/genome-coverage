@@ -40,52 +40,52 @@ public class ExceptionHandlingGUI {
      * @return le {@code JPanel} contenant deux {@code JScrollPane} (l'un pour
      * le message, l'autre pour le stack trace de l'exception)
      */
-	private static JPanel getErrorPanel(Throwable e) {
-	    // On crée un paneau (JPanel).
-		JPanel panel = new JPanel();
-		BorderLayout layout = new BorderLayout();
-		layout.setVgap(20);
-		panel.setLayout(layout);
-		
-		/* On crée un JLabel contenant le message de l'exception et on lui 
-		 * ajoute un JScrollPane.
-		 */
-		JLabel label = new JLabel(e.getMessage());
-		JScrollPane scrollMessage = new JScrollPane(label);
-		scrollMessage.setPreferredSize(new Dimension(500, 50));
-		
-		/* On crée un JTextArea contenant le stack trace et on lui ajoute un
-		 * JScrollPane.
-		 */
-		JTextArea stackTrace = new JTextArea();
-		stackTrace.setEditable(false);
-		stackTrace.setText(stackTraceToString(e));		
-		JScrollPane scrollTrace = new JScrollPane(stackTrace);
-		scrollTrace.setPreferredSize(new Dimension(600, 200));
-		
-		// On ajoute les deux JScrollPanes au JPanel.
-		panel.add(scrollMessage, BorderLayout.NORTH);
-		panel.add(scrollTrace,  BorderLayout.CENTER);
-		
-		// On renvoie le JPanel.
-		return panel;
-	}
+    private static JPanel getErrorPanel(Throwable e) {
+        // On crée un paneau (JPanel).
+        JPanel panel = new JPanel();
+        BorderLayout layout = new BorderLayout();
+        layout.setVgap(20);
+        panel.setLayout(layout);
 
-	
-	/**
-	 * Renvoie le stack trace d'une exception sous la forme d'une chaîne de
-	 * caractères.
-	 * 
-	 * @param e l'exception
-	 * 
-	 * @return chaîne de caractères représentant le stack trace de l'exception
-	 */
-	private static String stackTraceToString(Throwable e) {
-		StringBuilder sb = new StringBuilder();
-		for (StackTraceElement element : e.getStackTrace()) {
-			sb.append(element.toString());
-			sb.append("\n");
-		}
-		return sb.toString();
-	}    
+        /* On crée un JLabel contenant le message de l'exception et on lui
+         * ajoute un JScrollPane.
+         */
+        JLabel label = new JLabel(e.getMessage());
+        JScrollPane scrollMessage = new JScrollPane(label);
+        scrollMessage.setPreferredSize(new Dimension(500, 50));
+
+        /* On crée un JTextArea contenant le stack trace et on lui ajoute un
+         * JScrollPane.
+         */
+        JTextArea stackTrace = new JTextArea();
+        stackTrace.setEditable(false);
+        stackTrace.setText(stackTraceToString(e));
+        JScrollPane scrollTrace = new JScrollPane(stackTrace);
+        scrollTrace.setPreferredSize(new Dimension(600, 200));
+
+        // On ajoute les deux JScrollPanes au JPanel.
+        panel.add(scrollMessage, BorderLayout.NORTH);
+        panel.add(scrollTrace,  BorderLayout.CENTER);
+
+        // On renvoie le JPanel.
+        return panel;
+    }
+
+
+    /**
+     * Renvoie le stack trace d'une exception sous la forme d'une chaîne de
+     * caractères.
+     *
+     * @param e l'exception
+     *
+     * @return chaîne de caractères représentant le stack trace de l'exception
+     */
+    private static String stackTraceToString(Throwable e) {
+        StringBuilder sb = new StringBuilder();
+        for (StackTraceElement element : e.getStackTrace()) {
+            sb.append(element.toString());
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
 }

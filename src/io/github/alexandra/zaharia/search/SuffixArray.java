@@ -28,13 +28,13 @@ package io.github.alexandra.zaharia.search;
  * ligne</a>.
  */
 public class SuffixArray {
-	/**
-	 * Désigne le seuil (inclusif) en dessous duquel on utilise le tri par
-	 * insertion pour trier un sous-tableau d'entiers, au lieu du tri rapide
-	 * (<i>quicksort</i>). Ce choix s'explique par le fait que, dans la
-	 * pratique, il est plus rapide de trier un sous-tableau de faible dimension
-	 * par tri insertion que par tri rapide.
-	 */
+    /**
+     * Désigne le seuil (inclusif) en dessous duquel on utilise le tri par
+     * insertion pour trier un sous-tableau d'entiers, au lieu du tri rapide
+     * (<i>quicksort</i>). Ce choix s'explique par le fait que, dans la
+     * pratique, il est plus rapide de trier un sous-tableau de faible dimension
+     * par tri insertion que par tri rapide.
+     */
     private static final int CUTOFF = 10;
 
     /**

@@ -29,129 +29,129 @@ import static java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment;
  * de couverture (pour un ou plusieurs génomes).
  */
 public class GUI extends JPanel {
-	/**
-	 * Serial version ID généré.
-	 */
-	private static final long serialVersionUID = 6881040302799457389L;
+    /**
+     * Serial version ID généré.
+     */
+    private static final long serialVersionUID = 6881040302799457389L;
 
-	/**
-	 * Largeur utilisable de l'écran (en pixels).
-	 */
-	private int width;
-	
-	/**
-	 * Hauteur utilisable de l'écran (en pixels).
-	 */
-	private int height;
+    /**
+     * Largeur utilisable de l'écran (en pixels).
+     */
+    private int width;
 
-	/**
-	 * Le <i>content pane</i> sur lequel on affiche tous les composants de
-	 * l'interface.
-	 */
-	private Container pane;
-	
-	/**
-	 * Méthodes de recherche disponibles.
-	 */
-	private String[] searchMethods = { "Naïve", "Tableau de suffixes" };
-	
-	/**
-	 * Bouton permettant de parcourir le contenu du disque pour choisir le 
-	 * fichier multi-fasta contenant les génomes.
-	 */
-	private JButton bGenomes;
-	
-	/**
-	 * Bouton permettant de parcourir le contenu du disque pour choisir le 
-	 * fichier FastQ contenant les <i>reads</i>.
-	 */
-	private JButton bReads;
-	
-	/**
-	 * Bouton permettant de parcourir le contenu du disque pour choisir le
-	 * fichier de sortie (en vue de l'enregistremnet des résultats de la
+    /**
+     * Hauteur utilisable de l'écran (en pixels).
+     */
+    private int height;
+
+    /**
+     * Le <i>content pane</i> sur lequel on affiche tous les composants de
+     * l'interface.
+     */
+    private Container pane;
+
+    /**
+     * Méthodes de recherche disponibles.
+     */
+    private String[] searchMethods = { "Naïve", "Tableau de suffixes" };
+
+    /**
+     * Bouton permettant de parcourir le contenu du disque pour choisir le
+     * fichier multi-fasta contenant les génomes.
+     */
+    private JButton bGenomes;
+
+    /**
+     * Bouton permettant de parcourir le contenu du disque pour choisir le
+     * fichier FastQ contenant les <i>reads</i>.
+     */
+    private JButton bReads;
+
+    /**
+     * Bouton permettant de parcourir le contenu du disque pour choisir le
+     * fichier de sortie (en vue de l'enregistremnet des résultats de la
      * recherche).
-	 */
-	private JButton bOutput;
-	
-	/**
-	 * Bouton permettant de lancer la recherche des occurrences de tous les
-	 * <i>reads</i> contenus dans le fichier FastQ parmi l'ensemble de génomes
-	 * contenus dans le fichier multi-fasta.
-	 */
-	private JButton bSearch;
-	
-	/**
-	 * Champ pour retenir le chemin vers le fichier multi-fasta contenant les
-	 * génomes.
-	 */
-	private JTextField pathGenomes;
-	
-	/**
-	 * Champ pour retenir le chemin vers le fichier FastQ contenant les 
-	 * <i>reads</i>.
-	 */
-	private JTextField pathReads;
-	
-	/**
-	 * Champ pour spécifier le fichier de sortie (avec les résultats de la
-	 * recherche) - optionnel.
-	 */
-	private JTextField pathOutput;
-	
-	/**
-	 * <i>ComboBox</i> permettant de choisir la méthode de recherche à employer.
-	 */
-	private JComboBox<String> comboMethod;
-	
-	/**
-	 * Dialogue <code>JFileChooser</code> permettant de sélectionnner un fichier 
-	 * sur le disque pour l'ouverture ou l'enregistrement.
-	 */
-	private JFileChooser fc;
+     */
+    private JButton bOutput;
 
-	/**
-	 * Item du menu "Fichier" correspondant au choix "Enregistrer touts les
+    /**
+     * Bouton permettant de lancer la recherche des occurrences de tous les
+     * <i>reads</i> contenus dans le fichier FastQ parmi l'ensemble de génomes
+     * contenus dans le fichier multi-fasta.
+     */
+    private JButton bSearch;
+
+    /**
+     * Champ pour retenir le chemin vers le fichier multi-fasta contenant les
+     * génomes.
+     */
+    private JTextField pathGenomes;
+
+    /**
+     * Champ pour retenir le chemin vers le fichier FastQ contenant les
+     * <i>reads</i>.
+     */
+    private JTextField pathReads;
+
+    /**
+     * Champ pour spécifier le fichier de sortie (avec les résultats de la
+     * recherche) - optionnel.
+     */
+    private JTextField pathOutput;
+
+    /**
+     * <i>ComboBox</i> permettant de choisir la méthode de recherche à employer.
+     */
+    private JComboBox<String> comboMethod;
+
+    /**
+     * Dialogue <code>JFileChooser</code> permettant de sélectionnner un fichier
+     * sur le disque pour l'ouverture ou l'enregistrement.
+     */
+    private JFileChooser fc;
+
+    /**
+     * Item du menu "Fichier" correspondant au choix "Enregistrer touts les
      * graphiques...".
-	 */
-	private JMenuItem saveAll;
-	
-	/**
-	 * Barre d'état servant à indiquer si la recherche est en cours ou terminée,
-	 * ainsi qu'à donner des informations sur l'utilisation de la liste de 
-	 * génomes.
-	 */
-	private JLabel statusBar;
-	
-	/**
-	 * Instance de la classe {@code GUIModel} comprenant le modèle des données 
-	 * utilisées, ainsi que toute la logique interne de l'interface.
-	 */
-	private GUIModel guiModel;
-	
-	
-	/**
-	 * Constructeur de la classe.
-	 * <p>
-	 * Crée le menu de l'application et tous les composants graphiques à
-	 * afficher, les positionne dans le panneau et associe des 
-	 * <code>ActionListener</code>s aux items du menu.
-	 */
-    public GUI() {
-    	JFrame frame = new JFrame("Recherche de motifs nucléotidiques");
-    	frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+     */
+    private JMenuItem saveAll;
 
-    	initializeComponents();
-    	setLookAndFeel();
-    	
-    	// Création du ContentPane pour le JFrame 'frame'
+    /**
+     * Barre d'état servant à indiquer si la recherche est en cours ou terminée,
+     * ainsi qu'à donner des informations sur l'utilisation de la liste de
+     * génomes.
+     */
+    private JLabel statusBar;
+
+    /**
+     * Instance de la classe {@code GUIModel} comprenant le modèle des données
+     * utilisées, ainsi que toute la logique interne de l'interface.
+     */
+    private GUIModel guiModel;
+
+
+    /**
+     * Constructeur de la classe.
+     * <p>
+     * Crée le menu de l'application et tous les composants graphiques à
+     * afficher, les positionne dans le panneau et associe des
+     * <code>ActionListener</code>s aux items du menu.
+     */
+    public GUI() {
+        JFrame frame = new JFrame("Recherche de motifs nucléotidiques");
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        initializeComponents();
+        setLookAndFeel();
+
+        // Création du ContentPane pour le JFrame 'frame'
         pane = new JPanel();
         pane.setLayout(null);
 
-    	// Création d'un nouveau modèle pour ce GUI
-    	guiModel = new GUIModel(this);
-    	
-    	// Création et attribution de la barre de menus au frame 
+        // Création d'un nouveau modèle pour ce GUI
+        guiModel = new GUIModel(this);
+
+        // Création et attribution de la barre de menus au frame
         frame.setJMenuBar(createMenuBar());
 
         // Création de composants nécessaires pour définir la recherche
@@ -199,7 +199,7 @@ public class GUI extends JPanel {
         JScrollPane scrollPane = new JScrollPane(pane);
         frame.setContentPane(scrollPane);
         frame.setSize(Math.min(width, 1280), Math.min(height, 600));
-    	frame.setResizable(false);
+        frame.setResizable(false);
         frame.setVisible(true);
     }
     
@@ -227,12 +227,12 @@ public class GUI extends JPanel {
     private void initializeComponents() {
         fc = new JFileChooser();        
 
-    	// Dimensions de l'écran
-    	Rectangle bounds = getLocalGraphicsEnvironment().getMaximumWindowBounds();
-    	width  = bounds.width;
-    	height = bounds.height;
-    	
-    	// Méthode de recherche par défaut: recherche par tableau de suffixes
+        // Dimensions de l'écran
+        Rectangle bounds = getLocalGraphicsEnvironment().getMaximumWindowBounds();
+        width  = bounds.width;
+        height = bounds.height;
+
+        // Méthode de recherche par défaut: recherche par tableau de suffixes
         comboMethod = new JComboBox<String>(searchMethods);    
         comboMethod.setSelectedIndex(1);
 
@@ -272,7 +272,7 @@ public class GUI extends JPanel {
      * Configure quelques paramètres liés à l'aspect esthétique de l'interface.
      */
     private void setLookAndFeel() {
-    	UIManager.put("MenuBar.background",           GUIModel.ORANGE);
+        UIManager.put("MenuBar.background",           GUIModel.ORANGE);
         UIManager.put("MenuItem.background",          GUIModel.ORANGE);
         UIManager.put("Menu.selectionBackground",     Color.BLACK);
         UIManager.put("Menu.selectionForeground",     GUIModel.ORANGE);
@@ -348,11 +348,11 @@ public class GUI extends JPanel {
      * 
      * @param args paramètres en ligne de commande (non pris en compte)
      */
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new GUI();
             }
         });
-	}
+    }
 }

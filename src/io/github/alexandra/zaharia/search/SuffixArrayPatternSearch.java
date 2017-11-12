@@ -43,14 +43,14 @@ public class SuffixArrayPatternSearch extends PatternSearch {
      * renvoyés par les méthodes <code>parse</code> des classes héritant de
      * {@link Parser} vaut <code>null</code>
      */
-	public SuffixArrayPatternSearch(String fastaFile, String fastqFile)
+    public SuffixArrayPatternSearch(String fastaFile, String fastqFile)
             throws IOException {
-		super(fastaFile, fastqFile);
-	}
-	
-	
-	/**
-	 * Détermine par recherche par tableau de suffixes toutes les occurrences
+        super(fastaFile, fastqFile);
+    }
+
+
+    /**
+     * Détermine par recherche par tableau de suffixes toutes les occurrences
      * (avec chevauchement) de chaque <i>read</i> dans <code>reads</code> parmi
      * l'ensemble des génomes dans <code>genomes</code>.
      * <p>
@@ -62,80 +62,80 @@ public class SuffixArrayPatternSearch extends PatternSearch {
      *  
      * @return référence vers un <code>ArrayList</code> d'objets de type 
      * {@link SearchResults} contenant les résultats de la recherche
-	 */
-	public ArrayList<SearchResults> search() {
-	    /* Pour chaque génome désigné par son identifiant dans la variable 
-	     * d'instance 'genomes', on crée un objet de type SuffixArray qui sera
-	     * utilisé dans la recherche des occurrences de chaque 'read', dans le
-	     * sens direct en inverse.
-	     */
-		for (Map.Entry<String, String> genome : genomes.entrySet()) {
-			SuffixArray suffix = new SuffixArray(genome.getValue());
-			for (Map.Entry<String, String> read : reads.entrySet()) {
-				ArrayList<Integer> forwardOccurrences = 
-					findOccurrences(read.getValue(), suffix);
-				if (!forwardOccurrences.isEmpty()) {
-					SearchResults sr = new SearchResults(
-					        genome.getKey(),
+     */
+    public ArrayList<SearchResults> search() {
+        /* Pour chaque génome désigné par son identifiant dans la variable
+         * d'instance 'genomes', on crée un objet de type SuffixArray qui sera
+         * utilisé dans la recherche des occurrences de chaque 'read', dans le
+         * sens direct en inverse.
+         */
+        for (Map.Entry<String, String> genome : genomes.entrySet()) {
+            SuffixArray suffix = new SuffixArray(genome.getValue());
+            for (Map.Entry<String, String> read : reads.entrySet()) {
+                ArrayList<Integer> forwardOccurrences =
+                    findOccurrences(read.getValue(), suffix);
+                if (!forwardOccurrences.isEmpty()) {
+                    SearchResults sr = new SearchResults(
+                            genome.getKey(),
                             read.getKey(),
                             read.getValue().length(),
                             true,
                             forwardOccurrences
-					);
-					results.add(sr);
-				}
+                    );
+                    results.add(sr);
+                }
 
-				ArrayList<Integer> reverseOccurrences = 
-					findOccurrences(reverseComplement(read.getValue()), suffix);
-				if (!reverseOccurrences.isEmpty()) {
-					SearchResults sr = new SearchResults(
-					        genome.getKey(),
+                ArrayList<Integer> reverseOccurrences =
+                    findOccurrences(reverseComplement(read.getValue()), suffix);
+                if (!reverseOccurrences.isEmpty()) {
+                    SearchResults sr = new SearchResults(
+                            genome.getKey(),
                             read.getKey(),
                             read.getValue().length(),
                             false,
                             reverseOccurrences
-					);
-					results.add(sr);
-				}
-			}
-		}
-		return results;
-	}
-	
-	
-	/**
-	 * Détermine les occurrences du <i>read</i> {@code query} dans le génome
+                    );
+                    results.add(sr);
+                }
+            }
+        }
+        return results;
+    }
+
+
+    /**
+     * Détermine les occurrences du <i>read</i> {@code query} dans le génome
      * dont le tableau de suffixes est {@code suffix}.
-	 * 
-	 * @param query chaîne de caractères désignant le <i>read</i> dont on
+     *
+     * @param query chaîne de caractères désignant le <i>read</i> dont on
      * souhaite déterminer toutes les occurrences dans le cadre d'un génome
      * représenté par le tableau de suffixes {@code suffix}
-	 * 
-	 * @param suffix référence vers l'objet de type {@code SuffixArray}
+     *
+     * @param suffix référence vers l'objet de type {@code SuffixArray}
      * représentant le tableau de suffixes du génome dans lequel on souhaite
      * déterminer toutes les occurrences de la chaîne de caractères
      * {@code query}
-	 * 
-	 * @return {@code ArrayList} d'entiers donnant toutes les occurrences de la
+     *
+     * @return {@code ArrayList} d'entiers donnant toutes les occurrences de la
      * chaîne {@code query} dans le génome représenté par le tableau de suffixes
      * {@code suffix}
-	 */
-	private ArrayList<Integer> findOccurrences(
-	        String query, SuffixArray suffix) {
-		ArrayList<Integer> occ = new ArrayList<Integer>();
-		int k = binarySearch(query, suffix, 0, suffix.length()-1, -1, -1);
-		if (k != -1) {
-			int i = k;
-			occ.add(suffix.index(k));
-			while (i > 0 && suffix.lcp(i) >= query.length())
-				occ.add(suffix.index(--i));
-			i = k;
-			while (i < suffix.length()-1 && suffix.lcp(++i) >= query.length())
-				occ.add(suffix.index(i));
-		}        
-		Collections.sort(occ);
-		return occ;
-	}
+     */
+    private ArrayList<Integer> findOccurrences(
+            String query, SuffixArray suffix) {
+        ArrayList<Integer> occ = new ArrayList<Integer>();
+        int k = binarySearch(query, suffix, 0, suffix.length()-1, -1, -1);
+        if (k != -1) {
+            int i = k;
+            occ.add(suffix.index(k));
+            while (i > 0 && suffix.lcp(i) >= query.length())
+                occ.add(suffix.index(--i));
+            i = k;
+            while (i < suffix.length()-1 && suffix.lcp(++i) >= query.length())
+                occ.add(suffix.index(i));
+        }
+        Collections.sort(occ);
+        return occ;
+    }
 
 
     /**
