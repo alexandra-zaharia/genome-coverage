@@ -115,21 +115,18 @@ public class Help {
      */
     private static String getHtmlPath(String html) {
         String thisClassPath = Help.class.getResource("Help.class").toString();
-        Path currentRelativePath = Paths.get("");
         String htmlPath = "";
 
         if (!thisClassPath.startsWith("jar:")) {
-            htmlPath = "file:" + currentRelativePath.toAbsolutePath().toString();
             String sep = Character.toString(File.separatorChar);
-
-            if (htmlPath.endsWith(sep + "bin"))
-                htmlPath = htmlPath.substring(0, htmlPath.length() - 4);
-
-            htmlPath = htmlPath + sep + "res" + sep;
+            htmlPath = System.getProperty("user.dir");
+            File htmlFile = new File(htmlPath + sep + html);
+            htmlPath = "file:" + htmlPath + sep;
+            if (!htmlFile.exists()) // probablement en ligne de commande
+                htmlPath += "res" + sep;
         } else if (thisClassPath.contains("!")) { // à partir d'un JAR
             htmlPath = thisClassPath.split("!")[0] + "!/";
         }
-
         htmlPath += html;
         return htmlPath;
     }
