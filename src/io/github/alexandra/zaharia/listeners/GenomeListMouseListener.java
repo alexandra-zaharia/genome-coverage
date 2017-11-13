@@ -35,13 +35,13 @@ public class GenomeListMouseListener implements MouseListener {
     
     /**
      * L'ancien texte affiché par le {@code JLabel statusBar} de l'objet 
-     * {@code io.github.alexandra.zaharia.gui}.
+     * {@code gui}.
      */
     private String oldText;
     
     /**
      * Le nouveau texte à afficher dans le {@code JLabel statusBar} de l'objet
-     * {@code io.github.alexandra.zaharia.gui} quand la souris entre dans la région occupée par la liste de
+     * {@code gui} quand la souris entre dans la région occupée par la liste de
      * génomes.
      */
     private String newText = 
@@ -78,7 +78,7 @@ public class GenomeListMouseListener implements MouseListener {
      * S'il s'agit d'une sélection simple (un seul génome sélectionné), on
      * essaie d'abord de récupérer la courbe de couverture correspondante à
      * partir du {@code HashMap charts} de l'objet de type {@code GUIModel}
-     * attaché à {@code io.github.alexandra.zaharia.gui}. Si ce graphique n'est pas présent dans le
+     * attaché à {@code gui}. Si ce graphique n'est pas présent dans le
      * {@code HashMap}, il est généré, affiché et stocké dans le
      * {@code HashMap}. C'est une approche de type <i>lazy initialization</i>
      * permettant de gagner en performance lorsque l'utilisateur redemande

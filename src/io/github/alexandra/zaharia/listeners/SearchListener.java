@@ -40,9 +40,6 @@ public class SearchListener implements ActionListener {
     
     /**
      * Constructeur de la classe.
-     * <p>
-     * Initialise la variable d'instance {@code io.github.alexandra.zaharia.gui}. Récupère le bouton de
-     * recherche et la barre de statut de l'interface.
      * 
      * @param gui référence de l'objet de type {@code GUI} affichant l'interface
      */

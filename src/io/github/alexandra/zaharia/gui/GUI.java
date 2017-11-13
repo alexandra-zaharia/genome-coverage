@@ -258,7 +258,7 @@ public class GUI extends JPanel {
         // Le bouton qui lance la recherche est initialement inactif.
         bSearch.setEnabled(false);
         
-        // Ajout de io.github.alexandra.zaharia.listeners aux composants concernés
+        // Ajout de listeners aux composants concernés
         bGenomes.addActionListener(new GenomesBrowseListener(this));
         bReads  .addActionListener(new ReadsBrowseListener(this));
         bOutput .addActionListener(new OutputBrowseListener(this));
@@ -312,7 +312,7 @@ public class GUI extends JPanel {
         
         saveAll.setEnabled(false);
         
-        // Ajout de io.github.alexandra.zaharia.listeners aux items des menus
+        // Ajout de listeners aux items des menus
         saveAll.addActionListener(new SaveAllListener(this));
         
         quit.addActionListener(new ActionListener() {

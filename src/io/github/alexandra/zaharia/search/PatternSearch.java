@@ -42,7 +42,7 @@ public abstract class PatternSearch {
      * les résultats de la recherche.
      * <p>
      * <code>results</code> sera rempli au fur et à mesure que la recherche
-     * d'occurrences se poursuit, par la méthode <code>io.github.alexandra.zaharia.search</code>
+     * d'occurrences se poursuit, par la méthode <code>search</code>
      * implémentée par les classes héritant de <code>PatternSearch</code>.
      */
     protected final ArrayList<SearchResults> results;

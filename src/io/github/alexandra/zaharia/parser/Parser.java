@@ -7,12 +7,12 @@ import java.util.Map;
 /**
  * La classe <code>Parser</code> est une classe abstraite étendue
  * actuellement par les classes {@link FastaParser} et {@link FastQParser}.
- * Elle sert de point de départ pour toute classe permettant de io.github.alexandra.zaharia.parser
+ * Elle sert de point de départ pour toute classe permettant de parser
  * un fichier de données génomiques.
  */
 public abstract class Parser {
     /**
-     * Fichier de données à io.github.alexandra.zaharia.parser.
+     * Fichier de données à parser.
      */
     protected final File input;
 
@@ -21,13 +21,13 @@ public abstract class Parser {
      * Constructeur de la classe.
      * <p>
      * Initialise la variable d'instance <code>input</code> au fichier de
-     * données à io.github.alexandra.zaharia.parser, spécifié par la chaîne de caractères <code>file</code>.
+     * données à parser, spécifié par la chaîne de caractères <code>file</code>.
      * Le constructeur s'occupe aussi de vérifier que la chaîne de caractères
      * <code>file</code> est valide et que le fichier désigné par celle-là
      * existe et qu'il est un fichier normal non-vide qui peut être lu.
      *
      * @param file chaîne de caractères spécifiant le chemin vers le fichier
-     * de données à io.github.alexandra.zaharia.parser
+     * de données à parser
      *
      * @throws IOException si le fichier désigné par la chaîne de caractères
      * <code>file</code> n'existe pas, s'il n'est pas un fichier normal, s'il
@@ -75,7 +75,7 @@ public abstract class Parser {
      * <code>HashMap</code> associant des clés sous la forme de chaînes de
      * caractères à des valeurs sous la forme de chaîne de caractères, chaque
      * tel couple représentant une paire (identifiant, séquence) d'intérêt du
-     * fichier de données à io.github.alexandra.zaharia.parser.
+     * fichier de données à parser.
      *
      * @return référence vers un <code>HashMap</code> associant des chaînes
      * de caractères représentant les identifiants des séquences à des chaînes

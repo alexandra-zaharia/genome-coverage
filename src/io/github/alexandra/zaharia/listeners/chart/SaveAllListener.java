@@ -61,7 +61,7 @@ public class SaveAllListener implements ActionListener {
     * choisir le répertoire où les courbes de couverture seront enregistrées.
     * S'il a droit d'accès à ce répertoire en mode lecture et écriture,
     * l'enregistrement des graphique est lancé sur un nouveau fil d'exécution.
-    * Le {@code JLabel statusBar} de {@code io.github.alexandra.zaharia.gui} affichera le texte
+    * Le {@code JLabel statusBar} de {@code gui} affichera le texte
     * "Enregistrement en cours..." pendant l'enregistrement, puis 
     * "Enregistrement terminé".
     */

@@ -20,7 +20,7 @@ public class FastaParser extends Parser {
      * Constructeur de la classe.
      * <p>
      * Initialise la variable d'instance <code>input</code> au fichier
-     * multi-fasta à io.github.alexandra.zaharia.parser, spécifié par la chaîne de caractères
+     * multi-fasta à parser, spécifié par la chaîne de caractères
      * <code>file</code>. Le constructeur s'occupe aussi de vérifier que la
      * chaîne de caractères <code>file</code> est valide et que le fichier
      * désigné par celle-là existe et qu'il est un fichier normal non-vide
@@ -54,7 +54,7 @@ public class FastaParser extends Parser {
      * @return référence vers un objet de type <code>HashMap</code> contenant
      * les identifiants des génomes et les génomes eux-mêmes
      *
-     * @throws IllegalArgumentException si le fichier à io.github.alexandra.zaharia.parser n'est pas au
+     * @throws IllegalArgumentException si le fichier à parser n'est pas au
      * format multi-fasta, s'il contient des identifiants dupliqués ou si l'on
      * essaie d'ajouter au <code>HashMap</code> une clé ou une valeur vide
      *

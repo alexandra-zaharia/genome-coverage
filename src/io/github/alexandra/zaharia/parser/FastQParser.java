@@ -21,7 +21,7 @@ public class FastQParser extends Parser {
      * Constructeur de la classe.
      * <p>
      * Initialise la variable d'instance <code>input</code> au fichier
-     * FastQ à io.github.alexandra.zaharia.parser, spécifié par la chaîne de caractères
+     * FastQ à parser, spécifié par la chaîne de caractères
      * <code>file</code>. Le constructeur s'occupe aussi de vérifier que la
      * chaîne de caractères <code>file</code> est valide et que le fichier
      * désigné par celle-là existe et qu'il est un fichier normal non-vide
@@ -61,7 +61,7 @@ public class FastQParser extends Parser {
      * @return référence vers un objet de type <code>HashMap</code> contenant
      * les identifiants des <i>reads</i> et les <i>reads</i> eux-mêmes
      *
-     * @throws IllegalArgumentException si le fichier à io.github.alexandra.zaharia.parser contient des
+     * @throws IllegalArgumentException si le fichier à parser contient des
      * identifiants dupliqués ou si l'on essaie d'ajouter au
      * <code>HashMap</code> une clé ou une valeur vide
      *
