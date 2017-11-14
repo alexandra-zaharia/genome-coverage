@@ -28,9 +28,16 @@ The idea is to search for every exact occurrence of every _read_ in every genome
 
 ## Running GenomeCoverage
 
-GenomeCoverage can be compiled manually or run from the provided [JAR](/out/artifacts/GenomeCoverage_jar/GenomeCoverage.jar):
+GenomeCoverage can be run from the provided [JAR](/out/artifacts/GenomeCoverage_jar/GenomeCoverage.jar):
 
     java -jar GenomeCoverage.jar
+    
+GenomeCoverage can equally be run from the command line:
+```
+git clone https://github.com/alexandra-zaharia/genome-coverage.git
+cd genome-coverage/out/production/GenomeCoverage
+java -cp ../../../lib/*:. io.github.alexandra.zaharia.gui.GUI
+```
 
 ## Test files
 
