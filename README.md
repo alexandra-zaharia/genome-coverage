@@ -43,7 +43,11 @@ java -cp ../../../lib/*:. io.github.alexandra.zaharia.gui.GUI
 
 A multi-FASTA file containing 8 genomes of about 8,000 nucleotides each is provided: [HPV.fna](/res/HPV.fna)
 
+    wget https://raw.githubusercontent.com/alexandra-zaharia/genome-coverage/master/res/HPV.fna
+
 A FastQ file containing 10,000 _reads_ of 100 nucleotides each is provided: [reads.fq](/res/reads.fq)
+
+    wget https://raw.githubusercontent.com/alexandra-zaharia/genome-coverage/master/res/reads.fq
 
 ## Notes
 
